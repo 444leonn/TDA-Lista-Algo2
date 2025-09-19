@@ -57,6 +57,21 @@ bool lista_agregar(lista_t *lista, void *dato)
     return false;
 }
 
+void lista_destruir_todo(lista_t* lista, void (*destructor)(void*))
+{
+    if (lista == NULL || destructor == NULL)
+        return;
+
+    if (lista->nodo_siguiente == NULL) {
+        destructor(lista->dato);
+        free(lista);
+        return;
+    }
+    lista_destruir_todo(lista->nodo_siguiente);
+    destructor(lista->dato);
+    free(lista);
+}
+
 void lista_destruir(lista_t *lista)
 {
     if (lista == NULL)
@@ -66,7 +81,6 @@ void lista_destruir(lista_t *lista)
         free(lista);
         return;
     }
-
     lista_destruir(lista->nodo_siguiente);
     free(lista);
 }
