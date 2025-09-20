@@ -2,8 +2,8 @@
 #include <stdio.h>
 
 struct lista {
-    void* dato;
-    lista_t* nodo_siguiente;
+    nodo_t* primer_nodo;
+    size_t cantidad;
 };
 
 lista_t* lista_crear()
@@ -38,22 +38,16 @@ size_t lista_cantidad(lista_t *lista)
 
 bool lista_agregar(lista_t *lista, void *dato)
 {
-    if (lista == NULL)
+    if (lista == NULL || dato == NULL)
         return false;
-
-    lista_t* p_inicio_lista = lista;
-
-    while (lista->nodo_siguiente != NULL)
-        lista = lista->nodo_siguiente;
 
     if (lista->nodo_siguiente == NULL) {
         lista->dato = dato;
         lista->nodo_siguiente = lista_crear();
+        return true;
     }
 
-    lista = p_inicio_lista;
-
-    return true;
+    return lista_agregar(lista->nodo_siguiente, dato);
 }
 
 int lista_buscar_posicion(lista_t* lista, void* elemento, int (*comparador)(const void*, const void*))
