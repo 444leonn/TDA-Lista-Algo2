@@ -1,4 +1,5 @@
 #include "lista.h"
+#include <stdio.h>
 
 struct lista {
     void* dato;
@@ -12,7 +13,7 @@ lista_t* lista_crear()
 
 bool lista_vacia(lista_t *lista)
 {
-    if (lista == NULL || lista->nodo_siguiente == NULL)
+    if (lista == NULL || (lista->nodo_siguiente == NULL && lista->dato == NULL))
         return true;
     return false;
 }
@@ -40,21 +41,44 @@ bool lista_agregar(lista_t *lista, void *dato)
     if (lista == NULL)
         return false;
 
-    lista_t* puntero_inicio = lista;
-    while (lista->nodo_siguiente != NULL) {
+    lista_t* p_inicio_lista = lista;
+
+    while (lista->nodo_siguiente != NULL)
         lista = lista->nodo_siguiente;
-    }
 
     if (lista->nodo_siguiente == NULL) {
-        lista_t* nuevo_nodo = lista_crear();
-        nuevo_nodo->dato = dato;
-
-        lista->nodo_siguiente = nuevo_nodo;
-        lista = puntero_inicio;
-        return true;
+        lista->dato = dato;
+        lista->nodo_siguiente = lista_crear();
     }
 
-    return false;
+    lista = p_inicio_lista;
+
+    return true;
+}
+
+int lista_buscar_posicion(lista_t* lista, void* elemento, int (*comparador)(const void*, const void*))
+{
+    int posicion = -1, i = 0;
+
+    if (lista == NULL || elemento == NULL || comparador == NULL || lista_vacia(lista))
+        return posicion;
+
+    lista_t *p_inicio_lista = lista;
+    bool encontrado = false;
+
+
+    while (lista->nodo_siguiente != NULL && !encontrado) {
+        if (comparador(lista->dato, elemento) == 0) {
+            encontrado = true;
+            posicion = i;
+        }
+        lista = lista->nodo_siguiente;
+        i++;
+    }
+
+    lista = p_inicio_lista;
+
+    return posicion;
 }
 
 void lista_destruir_todo(lista_t* lista, void (*destructor)(void*))
@@ -67,7 +91,7 @@ void lista_destruir_todo(lista_t* lista, void (*destructor)(void*))
         free(lista);
         return;
     }
-    lista_destruir_todo(lista->nodo_siguiente);
+    lista_destruir_todo(lista->nodo_siguiente, destructor);
     destructor(lista->dato);
     free(lista);
 }
