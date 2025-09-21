@@ -51,7 +51,35 @@ bool lista_agregar(lista_t *lista, void *dato)
     return true;
 }
 
+bool lista_insertar(lista_t* lista, void* elemento, size_t posicion)
+{
+    if (lista == NULL)
+        return false;
 
+    nodo_t* nuevo_nodo = malloc(sizeof(nodo_t));
+    if (nuevo_nodo == NULL)
+        return false;
+    nuevo_nodo->dato = elemento;
+    
+    nodo_t* p_nodo = lista->primer_nodo;
+    nodo_t* nodo_aux = p_nodo;
+    size_t i = 0;
+    while (i < posicion) {
+        if (p_nodo == NULL) {
+            free(nuevo_nodo);
+            return false;
+        }
+        nodo_aux = p_nodo;
+        p_nodo = p_nodo->nodo_siguiente;
+        i++;
+    }
+    
+    nodo_aux->nodo_siguiente = nuevo_nodo;
+    nuevo_nodo->nodo_siguiente = p_nodo;
+    lista->cantidad++;
+    
+    return true;
+}
 
 void *lista_eliminar_elemento(lista_t *lista, size_t posicion) {
     if (lista == NULL)
