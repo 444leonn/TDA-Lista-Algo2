@@ -28,24 +28,13 @@
     make correr_pruebas
     ```
 
-    > [!IMPORTANT]
-    > Los _parametros_ que se deben pasar entre "" corresponden a el nombre de un archivo con pokemones, y tres parametros extra los cuales son busqueda, nombre o id, nombre del pokemon buscado o ID del pokemon buscado.
-    > Ejemplo: `make ejecutar PARAMETROS="./ejemplos/normal.csv buscar nombre Pikachu"` o `make ejecutar PARAMETROS="./ejemplos/normal.csv buscar id 1"`
+> [!IMPORTANT]
+> Los parametros que se deben pasar entre "" corresponden al nombre de un archivo con pokemones, y tres parametros extra los cuales son busqueda, nombre o id, nombre del pokemon buscado o ID del pokemon buscado. 
+> 
+> Ejemplo: `make ejecutar PARAMETROS="./ejemplos/normal.csv buscar nombre Pikachu"` O `make ejecutar PARAMETROS="./ejemplos/normal.csv buscar id 1"`---
 
-    
-
-- Para ejecutar:
-
-```bash
-línea de ejecución
-```
-
-- Para ejecutar con valgrind:
-
-```bash
-línea con valgrind
-```
 ---
+
 ##  Funcionamiento
 
 Explicación de cómo funcionan las estructuras desarrolladas en el TP y el funcionamiento general del mismo.
