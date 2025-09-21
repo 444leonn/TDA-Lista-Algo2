@@ -6,6 +6,32 @@
 #include "src/constantes.h"
 #include <stdlib.h>
 
+lista_t* crear_y_cargar_lista()
+{
+    lista_t* lista = lista_crear();
+    if (lista != NULL) {
+        int *dato_1 = malloc(sizeof(int));
+        if (dato_1 != NULL) {
+            *dato_1 = DATO_EJEMPLO_1;
+            lista_agregar(lista, dato_1);
+        }
+        
+        int *dato_2 = malloc(sizeof(int));
+        if (dato_2 != NULL) {
+            *dato_2 = DATO_EJEMPLO_2;
+            lista_agregar(lista, dato_2);
+        }
+
+        int *dato_3 = malloc(sizeof(int));
+        if (dato_3 != NULL) {
+            *dato_3 = DATO_EJEMPLO_3;
+            lista_agregar(lista, dato_3);
+        }
+    }
+
+    return lista;
+}
+
 void lista_crear_devuelve_la_lista()
 {
 	lista_t* lista = lista_crear();
@@ -18,7 +44,10 @@ void lista_crear_devuelve_la_lista()
 void lista_vacia_devuelve_true_si_no_tiene_elementos()
 {
 	lista_t* lista = lista_crear();
-	pa2m_afirmar(lista_vacia(lista) == true, "Funcion lista_vacia devuelve true para una lista vacia.");
+
+    bool resultado = lista_vacia(lista);
+
+	pa2m_afirmar(resultado == true, "Funcion lista_vacia devuelve true para una lista vacia.");
 	if (lista != NULL) {
 		lista_destruir(lista);
 	}
@@ -26,13 +55,11 @@ void lista_vacia_devuelve_true_si_no_tiene_elementos()
 
 void lista_vacia_devuelve_false_si_tiene_elementos()
 {
-	lista_t* lista = lista_crear();
-	int* dato = malloc(sizeof(int));
-	*dato = DATO_EJEMPLO_1;
-	if (lista != NULL) {
-		lista_agregar(lista, dato);
-	}
-	pa2m_afirmar(lista_vacia(lista) == false, "Funcion lista_vacia devuelve false para una lista no vacia.");
+    lista_t* lista = crear_y_cargar_lista();
+
+    bool resultado = lista_vacia(lista);
+
+	pa2m_afirmar(resultado == false, "Funcion lista_vacia devuelve false para una lista no vacia.");
 	if (lista != NULL)
 		lista_destruir_todo(lista, destructor_enteros);
 }
@@ -46,15 +73,10 @@ void lista_cantidad_devuelve_0_para_lista_nula()
 
 void lista_cantidad_devuelve_la_cantidad_de_elementos()
 {
-	lista_t* lista = lista_crear();
-	int* dato = malloc(sizeof(int));
-	*dato = DATO_EJEMPLO_1;
-	if (lista != NULL) {
-		lista_agregar(lista, dato);
-	}
+    lista_t* lista = crear_y_cargar_lista();
 
 	size_t cantidad = lista_cantidad(lista);
-	pa2m_afirmar(cantidad == 1, "Lista cantidad devuelve la cantidad de elementos. (devolvio: %ld)", cantidad);
+	pa2m_afirmar(cantidad == 3, "Lista cantidad devuelve la cantidad de elementos. (devolvio: %ld)", cantidad);
 
 	if (lista != NULL)
 		lista_destruir_todo(lista, destructor_enteros);
@@ -97,27 +119,25 @@ void lista_insertar_devuelve_null_para_posicion_invalida()
 
 void lista_insertar_devuelve_true_para_posicion_valida()
 {
-	lista_t* lista = lista_crear();
-	int* dato = malloc(sizeof(int));
-	*dato = DATO_EJEMPLO_1;
+    lista_t* lista = crear_y_cargar_lista();
 
  	int* otro_dato = malloc(sizeof(int));
 	*otro_dato = DATO_EJEMPLO_2;
-
-    lista_agregar(lista, dato);
 
     bool insertado = lista_insertar(lista, otro_dato, 1);
 	pa2m_afirmar(insertado == true, "Insertar un elemento en una posicion valida lo inserta, devuelve true.");
 	if (lista != NULL) {
 		lista_destruir_todo(lista, destructor_enteros);
-        free(otro_dato);
     }
 }
+
 void lista_eliminar_elemento_lista_vacia_devuelve_null()
 {
 	lista_t* lista = lista_crear();
-	int* eliminado = lista_eliminar_elemento(lista, 0);
-	pa2m_afirmar(eliminado == NULL, "Eliminar un elemento de la lista inexistente retorna NULL.");
+
+    int* eliminado = lista_eliminar_elemento(lista, 0);
+	
+    pa2m_afirmar(eliminado == NULL, "Eliminar un elemento de la lista inexistente retorna NULL.");
 	if (lista != NULL) {
 		lista_destruir(lista);
 	}
@@ -125,37 +145,26 @@ void lista_eliminar_elemento_lista_vacia_devuelve_null()
 
 void lista_eliminar_elemento_posicion_0_devuelve_el_elemento()
 {
-	lista_t* lista = lista_crear();
-	int* dato = malloc(sizeof(int));
-	int* dato1 = malloc(sizeof(int));
-	*dato = DATO_EJEMPLO_1;
-	*dato1 = DATO_EJEMPLO_2;
-	lista_agregar(lista, dato);
-	lista_agregar(lista, dato1);
+    lista_t* lista = crear_y_cargar_lista();
 
     int* dato_eliminado = lista_eliminar_elemento(lista, 0);
 	pa2m_afirmar(*dato_eliminado == DATO_EJEMPLO_1, "Eliminar un elemento de la lista retorna el elemento. (devolvio: %ld)", *dato_eliminado);
 	
-    free(dato_eliminado);
+    if (dato_eliminado != NULL)
+        free(dato_eliminado);
     if (lista != NULL)
 		lista_destruir_todo(lista, destructor_enteros);
 }
 
 void lista_eliminar_elemento_posicion_1_devuelve_el_elemento()
 {
-	lista_t* lista = lista_crear();
-	int* dato = malloc(sizeof(int));
-	int* dato1 = malloc(sizeof(int));
-	if (lista != NULL) {
-		*dato = DATO_EJEMPLO_1;
-		*dato1 = DATO_EJEMPLO_2;
-		lista_agregar(lista, dato);
-		lista_agregar(lista, dato1);
-	}
-	int* dato_eliminado = lista_eliminar_elemento(lista, 1);
+	lista_t* lista = crear_y_cargar_lista();
+
+    int* dato_eliminado = lista_eliminar_elemento(lista, 1);
 	pa2m_afirmar(*dato_eliminado == DATO_EJEMPLO_2, "Eliminar un elemento de la lista retorna el elemento. (devolvio: %ld)", *dato_eliminado);
-	
-    free(dato_eliminado);
+
+    if (dato_eliminado != NULL)
+        free(dato_eliminado);
     if (lista != NULL)
 		lista_destruir_todo(lista, destructor_enteros);
 }
@@ -181,22 +190,39 @@ void lista_buscar_posicion_no_lo_encuentra()
 
 void lista_buscar_posicion_devuelve_la_posicion()
 {
-	lista_t* lista = lista_crear();
-	int* dato = malloc(sizeof(int));
-	*dato = DATO_EJEMPLO_1;
-	int *otro_dato = malloc(sizeof(int));
-	*otro_dato = DATO_EJEMPLO_2;
-	int *otro_dato_mas = malloc(sizeof(int));
-	*otro_dato_mas = DATO_EJEMPLO_3;
+	lista_t* lista = crear_y_cargar_lista();
 
-	lista_agregar(lista, dato);
-	lista_agregar(lista, otro_dato);
-	lista_agregar(lista, otro_dato_mas);
+    int *otro_dato = malloc(sizeof(int));
+	*otro_dato = DATO_EJEMPLO_2;
 
 	int posicion_buscada = lista_buscar_posicion(lista, otro_dato, comparador_enteros);
-	pa2m_afirmar(posicion_buscada == 1, "Buscar elemento por posicion en lista devuelve la posicion. (devolvio: %d)", posicion_buscada);
+	pa2m_afirmar(posicion_buscada == 1, "Buscar la posicion de un elemento devuelve la posicion. (devolvio: %d)", posicion_buscada);
 	if (lista)
 		lista_destruir_todo(lista, destructor_enteros);
+    if (otro_dato != NULL)
+        free(otro_dato);
+}
+
+void lista_buscar_elemento_no_lo_encuentra_retorna_null()
+{
+    lista_t* lista = lista_crear();
+
+    int* elemento_buscado = lista_buscar_elemento(lista, 0);
+    pa2m_afirmar(elemento_buscado == NULL, "Buscar un elemento por posicion no lo encuentra y retorna NULL");
+    
+    if (lista != NULL)
+        lista_destruir(lista);
+}
+
+void lista_buscar_elemento_lo_encuentra_retorna_elemento()
+{
+    lista_t* lista = crear_y_cargar_lista();
+
+    int* elemento_buscado = lista_buscar_elemento(lista, 0);
+    pa2m_afirmar(*elemento_buscado == DATO_EJEMPLO_1, "Buscar un elemento por posicion lo encuentra y lo retorna. (devolvio: %ld)", *elemento_buscado);
+
+    if (lista != NULL)
+        lista_destruir_todo(lista, destructor_enteros);
 }
 
 int main()
@@ -223,6 +249,8 @@ int main()
 	pa2m_nuevo_grupo("Pruebas de Busqueda Elemento en Lista:");
 	lista_buscar_posicion_no_lo_encuentra();
 	lista_buscar_posicion_devuelve_la_posicion();
+    lista_buscar_elemento_no_lo_encuentra_retorna_null();
+    lista_buscar_elemento_lo_encuentra_retorna_elemento();
 
 	pa2m_nuevo_grupo("============== Pruebas de Pila ===============");
 
