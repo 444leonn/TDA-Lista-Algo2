@@ -6,11 +6,33 @@
 
 ## Repositorio de (Nombre Apellido) - (Padrón) - (Mail)
 
-- Para compilar:
+- Para la compilacion y ejecucion del programa de provee un **makefile**.
 
-```bash
-línea de compilación
-```
+  - Compilar:
+
+    ```bash
+    # compilar el programa
+    make tda
+    # compilar las pruebas
+    make pruebas_alumno
+    ```
+
+  - Ejecutar:
+
+    ```bash
+    # correr el programa
+    make ejecutar PARAMETROS="<parametros>"
+    # correr con el programa valgrind
+    make valgrind PARAMETROS="<parametros>"
+    # correr las pruebas
+    make correr_pruebas
+    ```
+
+    > [!IMPORTANT]
+    > Los _parametros_ que se deben pasar entre "" corresponden a el nombre de un archivo con pokemones, y tres parametros extra los cuales son busqueda, nombre o id, nombre del pokemon buscado o ID del pokemon buscado.
+    > Ejemplo: `make ejecutar PARAMETROS="./ejemplos/normal.csv buscar nombre Pikachu"` o `make ejecutar PARAMETROS="./ejemplos/normal.csv buscar id 1"`
+
+    
 
 - Para ejecutar:
 
@@ -19,6 +41,7 @@ línea de ejecución
 ```
 
 - Para ejecutar con valgrind:
+
 ```bash
 línea con valgrind
 ```
