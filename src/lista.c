@@ -7,7 +7,10 @@ struct lista {
     size_t cantidad;
 };
 
-lista_t *lista_crear() { return calloc(1, sizeof(lista_t)); }
+lista_t *lista_crear()
+{
+    return calloc(1, sizeof(lista_t));
+}
 
 bool lista_vacia(lista_t *lista) {
     if (lista == NULL)
