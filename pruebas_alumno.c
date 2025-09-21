@@ -74,10 +74,89 @@ void lista_agregar_devuelve_true_si_agrega()
 	int* dato = malloc(sizeof(int));
 	*dato = DATO_EJEMPLO_1;
 
-	bool agregado = lista_agregar(lista, dato);
+    bool agregado = lista_agregar(lista, dato);
 	pa2m_afirmar(agregado == true, "Agregar un elemento la lista lo agrega.");
 
 	if (lista != NULL)
+		lista_destruir_todo(lista, destructor_enteros);
+}
+
+void lista_insertar_devuelve_null_para_posicion_invalida()
+{
+	lista_t* lista = lista_crear();
+	int* dato = malloc(sizeof(int));
+	*dato = DATO_EJEMPLO_1;
+
+	bool insertado = lista_insertar(lista, dato, 4);
+	pa2m_afirmar(insertado == false, "Insertar un elemento en una posicion invalida no lo inserta, devuelve false.");
+	if (lista != NULL) {
+		lista_destruir(lista);
+	    free(dato);
+	}
+}
+
+void lista_insertar_devuelve_true_para_posicion_valida()
+{
+	lista_t* lista = lista_crear();
+	int* dato = malloc(sizeof(int));
+	*dato = DATO_EJEMPLO_1;
+
+ 	int* otro_dato = malloc(sizeof(int));
+	*otro_dato = DATO_EJEMPLO_2;
+
+    lista_agregar(lista, dato);
+
+    bool insertado = lista_insertar(lista, otro_dato, 1);
+	pa2m_afirmar(insertado == true, "Insertar un elemento en una posicion valida lo inserta, devuelve true.");
+	if (lista != NULL) {
+		lista_destruir_todo(lista, destructor_enteros);
+        free(otro_dato);
+    }
+}
+void lista_eliminar_elemento_lista_vacia_devuelve_null()
+{
+	lista_t* lista = lista_crear();
+	int* eliminado = lista_eliminar_elemento(lista, 0);
+	pa2m_afirmar(eliminado == NULL, "Eliminar un elemento de la lista inexistente retorna NULL.");
+	if (lista != NULL) {
+		lista_destruir(lista);
+	}
+}
+
+void lista_eliminar_elemento_posicion_0_devuelve_el_elemento()
+{
+	lista_t* lista = lista_crear();
+	int* dato = malloc(sizeof(int));
+	int* dato1 = malloc(sizeof(int));
+	*dato = DATO_EJEMPLO_1;
+	*dato1 = DATO_EJEMPLO_2;
+	lista_agregar(lista, dato);
+	lista_agregar(lista, dato1);
+
+    int* dato_eliminado = lista_eliminar_elemento(lista, 0);
+	pa2m_afirmar(*dato_eliminado == DATO_EJEMPLO_1, "Eliminar un elemento de la lista retorna el elemento. (devolvio: %ld)", *dato_eliminado);
+	
+    free(dato_eliminado);
+    if (lista != NULL)
+		lista_destruir_todo(lista, destructor_enteros);
+}
+
+void lista_eliminar_elemento_posicion_1_devuelve_el_elemento()
+{
+	lista_t* lista = lista_crear();
+	int* dato = malloc(sizeof(int));
+	int* dato1 = malloc(sizeof(int));
+	if (lista != NULL) {
+		*dato = DATO_EJEMPLO_1;
+		*dato1 = DATO_EJEMPLO_2;
+		lista_agregar(lista, dato);
+		lista_agregar(lista, dato1);
+	}
+	int* dato_eliminado = lista_eliminar_elemento(lista, 1);
+	pa2m_afirmar(*dato_eliminado == DATO_EJEMPLO_2, "Eliminar un elemento de la lista retorna el elemento. (devolvio: %ld)", *dato_eliminado);
+	
+    free(dato_eliminado);
+    if (lista != NULL)
 		lista_destruir_todo(lista, destructor_enteros);
 }
 
@@ -90,7 +169,7 @@ void lista_buscar_posicion_no_lo_encuentra()
 	*otro_dato = DATO_EJEMPLO_2;
 
 	lista_agregar(lista, dato);
-	int posicion_buscada = lista_buscar_posicion(lista, dato, comparador_enteros);
+	int posicion_buscada = lista_buscar_posicion(lista, otro_dato, comparador_enteros);
 
 	pa2m_afirmar(posicion_buscada == -1, "Buscar elemento en lista no lo encuentra. (devolvio: %d)", posicion_buscada);
 
@@ -134,13 +213,13 @@ int main()
 	pa2m_nuevo_grupo("Pruebas de Agregar Elementos en Lista:");
 	lista_agregar_devuelve_false_si_no_agrega();
 	lista_agregar_devuelve_true_si_agrega();
-	//pa2m_nuevo_grupo("Pruebas de Inserscion Elementos en Lista:");
-	//lista_insertar_devuelve_null_para_posicion_invalida();
-	//lista_insertar_devuelve_true_para_posicion_valida();
+	pa2m_nuevo_grupo("Pruebas de Inserscion Elementos en Lista:");
+	lista_insertar_devuelve_null_para_posicion_invalida();
+	lista_insertar_devuelve_true_para_posicion_valida();
 	pa2m_nuevo_grupo("Pruebas de Eliminar Elementos en Lista:");
-	//lista_eliminar_elemento_lista_vacia_devuelve_null();
-	//lista_eliminar_elemento_posicion_0_devuelve_el_elemento();
-	//lista_eliminar_elemento_posicion_1_devuelve_el_elemento();
+	lista_eliminar_elemento_lista_vacia_devuelve_null();
+	lista_eliminar_elemento_posicion_0_devuelve_el_elemento();
+	lista_eliminar_elemento_posicion_1_devuelve_el_elemento();
 	pa2m_nuevo_grupo("Pruebas de Busqueda Elemento en Lista:");
 	lista_buscar_posicion_no_lo_encuentra();
 	lista_buscar_posicion_devuelve_la_posicion();
