@@ -29,52 +29,29 @@ bool lista_agregar(lista_t *lista, void *dato)
     if (lista == NULL)
         return false;
     
-    nodo_t* p_nodo = lista->primer_nodo;
-    while (p_nodo->nodo_siguiente != NULL) {
-        p_nodo = p_nodo->nodo_siguiente;
-    }
-    
-    if (p_nodo->nodo_siguiente == NULL) {
-        p_nodo->nodo_siguiente = calloc(1, sizeof(nodo_t));
-        if (p_nodo->nodo_siguiente == NULL)
-            return false;
-        p_nodo->dato = dato;
+    nodo_t *nuevo_nodo = malloc(sizeof(nodo_t));
+    if (nuevo_nodo == NULL)
+        return false;
+    nuevo_nodo->dato = dato;
+    nuevo_nodo->nodo_siguiente = NULL;
+
+    if (lista->primer_nodo == NULL) {
+        lista->primer_nodo = nuevo_nodo;
         lista->cantidad++;
+        return true;
     }
+
+    nodo_t* p_nodo = lista->primer_nodo;
+    while (p_nodo->nodo_siguiente != NULL)
+        p_nodo = p_nodo->nodo_siguiente;
+
+    p_nodo->nodo_siguiente = nuevo_nodo;
+    lista->cantidad++;
 
     return true;
 }
 
-nodo_t *insertar_recursivo(nodo_t *nodo, void *dato, size_t posicion) {
-    if (nodo == NULL)
-      return NULL;
 
-    if (posicion == 0) {
-      nodo_t *nuevo_nodo = malloc(sizeof(nodo_t));
-      if (nuevo_nodo == NULL)
-        return NULL;
-      nuevo_nodo->dato = dato;
-      nuevo_nodo->nodo_siguiente = nodo;
-      return nuevo_nodo;
-    }
-
-    nodo->nodo_siguiente =
-        insertar_recursivo(nodo->nodo_siguiente, dato, posicion - 1);
-    return nodo;
-}
-
-bool lista_insertar(lista_t *lista, void *elemento, size_t posicion) {
-    if (lista == NULL || elemento == NULL)
-      return false;
-
-    lista->primer_nodo = insertar_recursivo(lista->primer_nodo, elemento, posicion);
-    if (lista->primer_nodo != NULL) {
-      lista->cantidad++;
-      return true;
-    }
-
-    return false;
-}
 
 void *lista_eliminar_elemento(lista_t *lista, size_t posicion) {
     if (lista == NULL)
