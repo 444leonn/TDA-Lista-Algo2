@@ -231,7 +231,11 @@ bool lista_iterador_hay_mas_elementos(lista_iterador_t* it)
     return it->nodo_actual->nodo_siguiente != NULL;
 }
 
-void lista_iterador_siguiente(lista_iterador_t* it);
+void lista_iterador_siguiente(lista_iterador_t* it)
+{
+    if (it != NULL && it->nodo_actual != NULL)
+        it->nodo_actual = it->nodo_actual->nodo_siguiente;
+}
 
 void* lista_iterador_obtener_actual(lista_iterador_t* it)
 {
