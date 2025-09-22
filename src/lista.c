@@ -241,3 +241,9 @@ void* lista_iterador_obtener_actual(lista_iterador_t* it)
         return it->nodo_actual->dato;
     return NULL;
 }
+
+void lista_iterador_destruir(lista_iterador_t* it)
+{
+    if (it != NULL)
+        free(it);
+}
