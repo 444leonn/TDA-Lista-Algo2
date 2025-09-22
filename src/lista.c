@@ -223,3 +223,12 @@ lista_iterador_t* lista_iterador_crear(lista_t* lista)
 
     return iterador;
 }
+
+bool lista_iterador_hay_mas_elementos(lista_iterador_t* it)
+{
+    if (it == NULL)
+        return false;
+    return it->nodo_actual->nodo_siguiente != NULL;
+}
+
+
