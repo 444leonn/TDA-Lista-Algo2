@@ -1,8 +1,10 @@
+<div align="right">
+<img width="32px" src="img/algo2.svg">
+</div>
+
 # TDA LISTA/PILA/COLA
 
-![Logo Algo2](./img/algo2.svg "Logo Algo2")
-
-## Repositorio de (Nombre Apellido) - (Padrón) - (Mail)
+## Repositorio de Leon Acosta - 113246 - leacosta@fi.uba.ar 
 
 - Para la compilacion y ejecucion del programa de provee un **makefile**.
 
