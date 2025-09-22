@@ -4,7 +4,12 @@
 
 struct lista {
     struct nodo *primer_nodo;
+    struct nodo *ultimo_nodo;
     size_t cantidad;
+};
+
+struct lista_iterador {
+    lista_t* lista;
 };
 
 lista_t *lista_crear()
@@ -37,15 +42,14 @@ bool lista_agregar(lista_t *lista, void *dato)
 
     if (lista->primer_nodo == NULL) {
         lista->primer_nodo = nuevo_nodo;
+        lista->ultimo_nodo = nuevo_nodo;
         lista->cantidad++;
         return true;
     }
 
-    nodo_t* p_nodo = lista->primer_nodo;
-    while (p_nodo->nodo_siguiente != NULL)
-        p_nodo = p_nodo->nodo_siguiente;
+    lista->ultimo_nodo->nodo_siguiente = nuevo_nodo;
+    lista->ultimo_nodo = lista->ultimo_nodo->nodo_siguiente;
 
-    p_nodo->nodo_siguiente = nuevo_nodo;
     lista->cantidad++;
 
     return true;
