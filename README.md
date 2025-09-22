@@ -1,8 +1,6 @@
-<div align="right">
-<img width="32px" src="img/algo2.svg">
-</div>
-
 # TDA LISTA/PILA/COLA
+
+![Logo Algo2](./img/algo2.svg "Logo Algo2")
 
 ## Repositorio de (Nombre Apellido) - (Padrón) - (Mail)
 
@@ -30,8 +28,8 @@
 
 > [!IMPORTANT]
 > Los parametros que se deben pasar entre "" corresponden al nombre de un archivo con pokemones, y tres parametros extra los cuales son busqueda, nombre o id, nombre del pokemon buscado o ID del pokemon buscado. 
-> 
-> Ejemplo: `make ejecutar PARAMETROS="./ejemplos/normal.csv buscar nombre Pikachu"` O `make ejecutar PARAMETROS="./ejemplos/normal.csv buscar id 1"`---
+>
+> Ejemplo: `make ejecutar PARAMETROS="./ejemplos/normal.csv buscar nombre Pikachu"` O `make ejecutar PARAMETROS="./ejemplos/normal.csv buscar id 1"`
 
 ---
 
