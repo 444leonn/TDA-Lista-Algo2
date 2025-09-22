@@ -3,7 +3,7 @@
 
 typedef struct nodo {
     void* dato;
-    struct nodo* nodo_siguiente;
+    struct nodo* proximo;
 } nodo_t;
 
 int comparador_enteros(const void* primer_dato, const void* segundo_dato);
