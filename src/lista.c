@@ -10,6 +10,7 @@ struct lista {
 
 struct lista_iterador {
     lista_t* lista;
+    nodo_t* nodo_actual;
 };
 
 lista_t *lista_crear()
@@ -33,7 +34,7 @@ bool lista_agregar(lista_t *lista, void *dato)
 {
     if (lista == NULL)
         return false;
-    
+
     nodo_t *nuevo_nodo = malloc(sizeof(nodo_t));
     if (nuevo_nodo == NULL)
         return false;
@@ -46,10 +47,8 @@ bool lista_agregar(lista_t *lista, void *dato)
         lista->cantidad++;
         return true;
     }
-
     lista->ultimo_nodo->nodo_siguiente = nuevo_nodo;
     lista->ultimo_nodo = lista->ultimo_nodo->nodo_siguiente;
-
     lista->cantidad++;
 
     return true;
@@ -208,4 +207,13 @@ void lista_destruir(lista_t *lista)
     }
 
     free(lista);
+}
+
+lista_iterador_t* lista_iterador_crear(lista_t* lista)
+{
+    lista_iterador_t* iterador = malloc(sizeof(lista_iterador_t));
+    if (iterador == NULL)
+        return NULL;
+    iterador->lista = lista;
+    return iterador;
 }
