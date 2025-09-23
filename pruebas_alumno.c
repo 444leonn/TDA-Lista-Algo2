@@ -344,6 +344,11 @@ void pila_apilar_elemento_retorna_true_al_apilar()
     bool apilado = pila_apilar(pila, dato);
 
     pa2m_afirmar(apilado == true, "Apila un elemento en una Pila valida lo apila y devuelve true.");
+
+    if (pila != NULL)
+        pila_destruir(pila);
+    if (dato != NULL)
+        free(dato);
 }
 
 void pila_desapilar_con_pila_invalida_retorna_null()
