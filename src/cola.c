@@ -3,6 +3,7 @@
 
 struct cola {
     nodo_t* nodo_cabecera;
+    nodo_t* ultimo_nodo;
     size_t cantidad;
 };
 
