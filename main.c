@@ -1,7 +1,6 @@
 #include "src/lista.h"
 #include "src/tp1/tp1.h"
 #include "src/tp1/aux_tp1.h"
-#include "src/tp1/mostrar_nombre.h"
 #include "src/constantes.h"
 
 #include <stdio.h>
