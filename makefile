@@ -1,8 +1,3 @@
-##
-# TDA-Lista-113246
-#
-# @file
-# @version 0.1
 CFLAGS=-std=c99 -Wall -Wconversion -Wtype-limits -pedantic -Werror -O2 -g
 VFLAGS=--leak-check=full --track-origins=yes --track-origins=yes
 
@@ -21,4 +16,3 @@ pruebas_alumno:
 correr-pruebas: pruebas_alumno
 	valgrind $(VFLAGS) ./pruebas_alumno
 
-# end
