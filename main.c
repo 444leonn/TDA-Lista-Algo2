@@ -4,6 +4,7 @@
 #include "src/constantes.h"
 
 #include <stdio.h>
+#include <string.h>
 
  bool agregar_pokemon_en_lista(struct pokemon *pokemon, void *lista)
 {
