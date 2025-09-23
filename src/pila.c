@@ -75,5 +75,5 @@ void pila_destruir(pila_t *pila)
             free(nodo_aux);
     }
 
-    free(lista);
+    free(pila);
 }
