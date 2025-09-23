@@ -77,16 +77,18 @@ int main(int argc, char *argv[])
             pokemon_buscado = lista_buscar_elemento(pokemones_enlazados, (size_t)posicion_pokemon_buscado);
 
             mostrar_pokemon(pokemon_buscado, NULL);
+        } else {
+            printf(TROJO"Error, el pokemon no ha sido encontrado." TNORMAL"\n");
         }
-        printf(TROJO"Error, el pokemon no ha sido encontrado." TNORMAL"\n");
     } else if (strcmp(argv[3], "id") == 0) {
         int posicion_pokemon_buscado = lista_buscar_posicion(pokemones_enlazados, argv[4],  comparador_ids);
         if (posicion_pokemon_buscado != POSICION_INVALIDA) {
             pokemon_buscado = lista_buscar_elemento(pokemones_enlazados, (size_t)posicion_pokemon_buscado);
 
             mostrar_pokemon(pokemon_buscado, NULL);
+        } else {
+            printf(TROJO"Error, el pokemon no ha sido encontrado." TNORMAL"\n");
         }
-        printf(TROJO"Error, el pokemon no ha sido encontrado." TNORMAL"\n");
     } else {
         printf(TROJO"Error, opcion de busqueda invalida" TNORMAL"\n");
     }
