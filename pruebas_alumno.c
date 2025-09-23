@@ -225,6 +225,101 @@ void lista_buscar_elemento_lo_encuentra_retorna_elemento()
         lista_destruir_todo(lista, destructor_enteros);
 }
 
+void iterador_crear_devuelve_null_para_lista_nula()
+{
+    lista_iterador_t* iterador = lista_iterador_crear(NULL);
+    pa2m_afirmar(iterador == NULL, "Crear un iterador con Lista NULA devuelve NULL.");
+}
+
+void iterador_crear_devuelve_el_iterador_correctamente()
+{
+    lista_t* lista = crear_y_cargar_lista();
+    lista_iterador_t* iterador = lista_iterador_crear(lista);
+    pa2m_afirmar(iterador != NULL, "Crear un iterador con Lista correcta devuelve el iterador.");
+    if (iterador != NULL)
+        lista_iterador_destruir(iterador);
+    if (lista != NULL)
+        lista_destruir_todo(lista, destructor_enteros);
+}
+
+void iterador_hay_mas_elementos_devuelve_false_para_lista_vacia()
+{
+    lista_t* lista = lista_crear();
+    lista_iterador_t* iterador = lista_iterador_crear(lista);
+    
+    bool mas_elementos = lista_iterador_hay_mas_elementos(iterador);
+
+    pa2m_afirmar(mas_elementos == false, "hay_mas_elementos() en un Iterador de una Lista sin elementos devuelve false.");
+    if (lista != NULL)
+        lista_destruir(lista);
+    if (iterador != NULL)
+        lista_iterador_destruir(iterador);
+}
+
+void iterador_hay_mas_elementos_devuelve_true()
+{
+    lista_t* lista = crear_y_cargar_lista();
+    lista_iterador_t* iterador = lista_iterador_crear(lista);
+
+    bool mas_elementos = lista_iterador_hay_mas_elementos(iterador);
+
+    pa2m_afirmar(mas_elementos = true, "hay_mas_elementos() en un Iterador de una Lista con elementos aun por iterar devuelve true");
+
+    if (iterador != NULL)
+        lista_iterador_destruir(iterador);
+    if (lista != NULL)
+        lista_destruir_todo(lista, destructor_enteros);
+}
+
+void iterador_hay_mas_elementos_devuelve_false_al_iterar_todo()
+{
+    lista_t* lista = crear_y_cargar_lista();
+    lista_iterador_t* iterador = lista_iterador_crear(lista);
+
+    while (lista_iterador_hay_mas_elementos(iterador)) {
+        lista_iterador_siguiente(iterador);
+    }
+
+    bool mas_elementos = lista_iterador_hay_mas_elementos(iterador);
+
+    pa2m_afirmar(mas_elementos == false, "hay_mas_elementos() devuelve false para un Iterador luego de llegar al fin de las iteraciones");
+
+    if (iterador != NULL)
+        lista_iterador_destruir(iterador);
+    if (lista != NULL)
+        lista_destruir_todo(lista, destructor_enteros);
+}
+
+void iterador_obtener_actual_devuelve_null_para_lista_vacia()
+{
+    lista_t* lista = lista_crear();
+    lista_iterador_t* iterador = lista_iterador_crear(lista);
+    
+    int* dato = lista_iterador_obtener_actual(iterador);
+
+    pa2m_afirmar(dato == NULL, "Obtener el elemento de la actual Iteracion devuelve NULL para una Lista vacia.");
+
+    if (iterador != NULL)
+        lista_iterador_destruir(iterador);
+    if (lista != NULL)
+        lista_destruir(lista);
+}
+
+void iterador_obtener_actual_devuelve_el_elemento()
+{
+    lista_t* lista = crear_y_cargar_lista();
+    lista_iterador_t* iterador = lista_iterador_crear(lista);
+    
+    int* dato = lista_iterador_obtener_actual(iterador);
+
+    pa2m_afirmar(dato != NULL, "Obtener el elemento de la actual Iteracion devuelve el elemento.");
+
+    if (iterador != NULL)
+        lista_iterador_destruir(iterador);
+    if (lista != NULL)
+        lista_destruir_todo(lista, destructor_enteros);
+}
+
 int main()
 {
 	pa2m_nuevo_grupo("============== Pruebas de Lista ===============");
@@ -251,6 +346,14 @@ int main()
 	lista_buscar_posicion_devuelve_la_posicion();
     lista_buscar_elemento_no_lo_encuentra_retorna_null();
     lista_buscar_elemento_lo_encuentra_retorna_elemento();
+    pa2m_nuevo_grupo("Pruebas de Iterador de Lista:");
+    void iterador_crear_devuelve_null_para_lista_nula();
+    void iterador_crear_devuelve_el_iterador_correctamente();
+    void iterador_hay_mas_elementos_devuelve_false_para_lista_vacia();
+    void iterador_hay_mas_elementos_devuelve_true();
+    void iterador_hay_mas_elementos_devuelve_false_al_iterar_todo();
+    void iterador_obtener_actual_devuelve_null_para_lista_vacia();
+    void iterador_obtener_actual_devuelve_el_elemento();
 
 	pa2m_nuevo_grupo("============== Pruebas de Pila ===============");
 
