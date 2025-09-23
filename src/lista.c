@@ -226,7 +226,7 @@ lista_iterador_t* lista_iterador_crear(lista_t* lista)
 
 bool lista_iterador_hay_mas_elementos(lista_iterador_t* it)
 {
-    if (it == NULL)
+    if (it == NULL || lista_vacia(it->lista))
         return false;
     return it->nodo_actual->proximo != NULL;
 }
