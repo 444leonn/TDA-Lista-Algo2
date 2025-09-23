@@ -486,6 +486,174 @@ void pila_cantidad_devuelve_0_para_pila_invalida()
     pa2m_afirmar(cantidad_elementos == 0, "Cantidad de elementos de la Pila devuelve 0 para lista invalida. (devolvio: %ld)", cantidad_elementos);
 }
 
+void cola_crear_retorna_una_nueva_cola()
+{
+    cola_t* cola = cola_crear();
+    pa2m_afirmar(cola != NULL, "Crear una nueva cola, retorna la cola.");
+
+    if (cola != NULL)
+        cola_destruir(cola);
+}
+
+void cola_encolar_elemento_en_cola_invalida_retorna_false()
+{
+    bool encolado = cola_encolar(NULL, NULL);
+
+    pa2m_afirmar(encolado == false, "Encolar un elemento en una Cola invalida no lo encola y devuelve false.");
+}
+
+void cola_encolar_elemento_retorna_true_al_encolar()
+{
+    cola_t* cola = cola_crear();
+    int* dato = malloc(sizeof(int));
+    *dato = DATO_EJEMPLO_1;
+
+    bool acolado = cola_encolar(cola, dato);
+
+    pa2m_afirmar(acolado == true, "Encolar un elemento en una Cola valida lo encola y devuelve true.");
+
+    if (cola != NULL)
+        cola_destruir(cola);
+    if (dato != NULL)
+        free(dato);
+}
+
+void cola_desencolar_con_cola_invalida_retorna_null()
+{
+    void* dato_desencolado = cola_desencolar(NULL);
+    pa2m_afirmar(dato_desencolado == NULL, "Desencolar de una Cola invalida devuelve NULL.");
+}
+
+void cola_desencolar_con_cola_vacia_retorna_null()
+{
+    cola_t* cola = cola_crear();
+    void* dato_desencolado = cola_desencolar(cola);
+
+    pa2m_afirmar(dato_desencolado == NULL, "Desencolar de una Cola vacia devuelve NULL.");
+
+    if (cola != NULL)
+        cola_destruir(cola);
+}
+
+void cola_desencolar_elemento_del_tope_devuelve_elemento()
+{
+    cola_t* cola = cola_crear();
+    int *dato_1 = malloc(sizeof(int));
+    *dato_1 = DATO_EJEMPLO_1;
+
+    cola_encolar(cola, dato_1);
+
+    void* dato_desencolado = cola_desencolar(cola);
+    pa2m_afirmar(dato_desencolado != NULL, "Desencolar de una Cola con elemento devuelve el elemento.");
+
+    if (cola != NULL)
+        cola_destruir(cola);
+    if (dato_desencolado != NULL)
+        free(dato_desencolado);
+}
+
+void cola_desencolar_elemento_del_tope_con_varios_elementos_devuelve_elemento()
+{
+    cola_t* cola = cola_crear();
+    int *dato_1 = malloc(sizeof(int));
+    if (dato_1 != NULL) {
+        *dato_1 = DATO_EJEMPLO_1;
+        cola_encolar(cola, dato_1);
+    }
+
+    int* dato_2 = malloc(sizeof(int));
+    if (dato_2 != NULL) {
+        *dato_2 = DATO_EJEMPLO_2;
+        cola_encolar(cola, dato_2);
+    }
+
+    void* dato_desencolado = cola_desencolar(cola);
+    pa2m_afirmar(dato_desencolado != NULL, "Desencolar de una Cola con mas de un elemento devuelve el elemento.");
+
+    if (cola != NULL)
+        cola_destruir(cola);
+    if (dato_desencolado != NULL)
+        free(dato_desencolado);
+    if (dato_2 != NULL)
+        free(dato_2);
+}
+
+void cola_ver_primero_devuelve_null_con_cola_invalida()
+{
+    void *primer_dato = cola_ver_primero(NULL);
+    pa2m_afirmar(primer_dato == NULL, "Ver el Primer elemento de una cola Invalida devuelve NULL.");
+}
+
+void cola_ver_primero_devuelve_null_con_cola_vacia()
+{
+    cola_t *cola = cola_crear();
+    
+    void *primer_dato = cola_ver_primero(cola);
+    pa2m_afirmar(primer_dato == NULL, "Ver el Primer elemento de una cola Vacia devuelve NULL.");
+
+    if (cola != NULL)
+        cola_destruir(cola);
+}
+
+void cola_ver_primero_devuelve_el_tope_de_cola()
+{
+    cola_t* cola = cola_crear();
+    int *dato_1 = malloc(sizeof(int));
+    if (dato_1 != NULL) {
+        *dato_1 = DATO_EJEMPLO_1;
+        cola_encolar(cola, dato_1);
+    }
+
+    int* dato_2 = malloc(sizeof(int));
+    if (dato_2 != NULL) {
+        *dato_2 = DATO_EJEMPLO_2;
+        cola_encolar(cola, dato_2);
+    }
+
+    void* primer_dato = cola_ver_primero(cola);
+    pa2m_afirmar(primer_dato != NULL, "Ver Primer elemento de la cola devuelve el elemento.");
+
+    if (cola != NULL)
+        cola_destruir(cola);
+    if (primer_dato != NULL)
+        free(primer_dato);
+    if (dato_2 != NULL)
+        free(dato_2);
+}
+
+void cola_cantidad_devuelve_cantidad_de_elementos()
+{
+    cola_t* cola = cola_crear();
+    int *dato_1 = malloc(sizeof(int));
+    if (dato_1 != NULL) {
+        *dato_1 = DATO_EJEMPLO_1;
+        cola_encolar(cola, dato_1);
+    }
+
+    int* dato_2 = malloc(sizeof(int));
+    if (dato_2 != NULL) {
+        *dato_2 = DATO_EJEMPLO_2;
+        cola_encolar(cola, dato_2);
+    }
+
+    size_t cantidad_elementos = cola_cantidad(cola);
+    pa2m_afirmar(cantidad_elementos == 2, "Cantidad de elementos de la cola devuelve la cantidad. (devolvio: %ld)", cantidad_elementos);
+
+    if (cola != NULL)
+        cola_destruir(cola);
+    if (dato_1 != NULL)
+        free(dato_1);
+    if (dato_2 != NULL)
+        free(dato_2);
+}
+
+void cola_cantidad_devuelve_0_para_cola_invalida()
+{
+    size_t cantidad_elementos = cola_cantidad(NULL);
+    pa2m_afirmar(cantidad_elementos == 0, "Cantidad de elementos de la cola devuelve 0 para lista invalida. (devolvio: %ld)", cantidad_elementos);
+}
+
+
 int main()
 {
 	pa2m_nuevo_grupo("============== Pruebas de Lista ===============");
@@ -553,6 +721,27 @@ int main()
     pila_cantidad_devuelve_cantidad_de_elementos();
 
 	pa2m_nuevo_grupo("============== Pruebas de Cola ===============");
+	pa2m_nuevo_grupo("Pruebas de Creacion de Cola");
+    cola_crear_retorna_una_nueva_cola();
 
-	return pa2m_mostrar_reporte();
+    pa2m_nuevo_grupo("Pruebas de Apilar:");
+    cola_encolar_elemento_en_cola_invalida_retorna_false();
+    cola_encolar_elemento_retorna_true_al_encolar();
+
+    pa2m_nuevo_grupo("Pruebas de Desencolar:");
+    cola_desencolar_con_cola_invalida_retorna_null();
+    cola_desencolar_con_cola_vacia_retorna_null();
+    cola_desencolar_elemento_del_tope_devuelve_elemento();
+    cola_desencolar_elemento_del_tope_con_varios_elementos_devuelve_elemento();
+
+    pa2m_nuevo_grupo("Pruebas de Ver Primero en cola:");
+    cola_ver_primero_devuelve_null_con_cola_invalida();
+    cola_ver_primero_devuelve_null_con_cola_vacia();
+    cola_ver_primero_devuelve_el_tope_de_cola();
+
+    pa2m_nuevo_grupo("Pruebas de Cantidad de cola:");
+    cola_cantidad_devuelve_0_para_cola_invalida();
+    cola_cantidad_devuelve_cantidad_de_elementos();
+
+    return pa2m_mostrar_reporte();
 }
