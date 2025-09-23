@@ -93,7 +93,6 @@ int main(int argc, char *argv[])
         printf(TROJO"Error, opcion de busqueda invalida" TNORMAL"\n");
     }
 
-    // VER DE DESTRUIR TP1 ANTES
     tp1_destruir(tp);
     lista_destruir(pokemones_enlazados);
 
