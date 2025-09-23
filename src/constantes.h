@@ -4,6 +4,7 @@
 #define TROJO "\x1b[31m"
 #define TNORMAL "\x1b[0m"
 #define TIPO_INVALIDO -1
+#define POSICION_INVALIDA -1
 
 #define MODO_LECTURA "r"
 #define MODO_ESCRITURA "w"

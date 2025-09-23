@@ -1,5 +1,6 @@
 #include "lista.h"
 #include "aux.h"
+#include "constantes.h"
 #include <stdio.h>
 
 struct lista {
@@ -125,7 +126,7 @@ void* lista_eliminar_elemento(lista_t *lista, size_t posicion) {
 int lista_buscar_posicion(lista_t* lista, void* elemento, int (*comparador)(const void*, const void*))
 {
     if (lista == NULL)
-        return -1;
+        return POSICION_INVALIDA;
     
     int posicion = 0;
     nodo_t* p_nodo = lista->primer_nodo;
@@ -137,7 +138,7 @@ int lista_buscar_posicion(lista_t* lista, void* elemento, int (*comparador)(cons
         posicion++;
     }
     
-    return -1;
+    return POSICION_INVALIDA;
 }
 
 void* lista_buscar_elemento(lista_t* lista, size_t posicion)
