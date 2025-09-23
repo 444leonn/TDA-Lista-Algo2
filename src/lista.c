@@ -3,8 +3,8 @@
 #include <stdio.h>
 
 struct lista {
-    struct nodo *primer_nodo;
-    struct nodo *ultimo_nodo;
+    nodo_t* primer_nodo;
+    nodo_t* ultimo_nodo;
     size_t cantidad;
 };
 
