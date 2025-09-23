@@ -27,8 +27,11 @@ bool pila_apilar(pila_t* pila, void* elemento)
         pila->cantidad++;
         return true;
     }
-    pila->nodo_tope->proximo = pila->nodo_tope;
+    nodo_t* nodo_aux = pila->nodo_tope;
     pila->nodo_tope = nuevo_nodo;
+    
+    pila->nodo_tope->proximo = nodo_aux;
+
     pila->cantidad++;
 
     return true;
@@ -58,7 +61,7 @@ void *pila_ver_primero(pila_t *pila)
 size_t pila_cantidad(pila_t *pila)
 {
     if (pila == NULL)
-        return NULL;
+        return 0;
     return pila->cantidad;
 }
 
