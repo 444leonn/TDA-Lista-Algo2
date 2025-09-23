@@ -320,32 +320,200 @@ void iterador_obtener_actual_devuelve_el_elemento()
         lista_destruir_todo(lista, destructor_enteros);
 }
 
+void pila_crear_retorna_una_nueva_pila()
+{
+    pila_t* pila = pila_crear();
+    pa2m_afirmar(pila != NULL, "Crear una nueva pila, retorna la pila.");
+    if (pila != NULL)
+        pila_destruir(pila);
+}
+
+void pila_apilar_elemento_en_pila_invalida_retorna_false()
+{
+    bool apilado = pila_apilar(NULL, NULL);
+
+    pa2m_afirmar(apilado == false, "Apilar un elemento en una Pila invalida no lo apila y devuelve false.");
+}
+
+void pila_apilar_elemento_retorna_true_al_apilar()
+{
+    pila_t* pila = pila_crear();
+    int* dato = malloc(sizeof(int));
+    *dato = DATO_EJEMPLO_1;
+
+    bool apilado = pila_apilar(pila, dato);
+
+    pa2m_afirmar(apilado == true, "Apila un elemento en una Pila valida lo apila y devuelve true.");
+}
+
+void pila_desapilar_con_pila_invalida_retorna_null()
+{
+    void* dato_desapilado = pila_desapilar(NULL);
+    pa2m_afirmar(dato_desapilado == NULL, "Desapilar de una Pila invalida devuelve NULL.");
+}
+
+void pila_desapilar_con_pila_vacia_retorna_null()
+{
+    pila_t* pila = pila_crear();
+    void* dato_desapilado = pila_desapilar(pila);
+
+    pa2m_afirmar(dato_desapilado == NULL, "Desapilar de una Pila vacia devuelve NULL.");
+
+    if (pila != NULL)
+        pila_destruir(pila);
+}
+
+void pila_desapilar_elemento_del_tope_devuelve_elemento()
+{
+    pila_t* pila = pila_crear();
+    int *dato_1 = malloc(sizeof(int));
+    *dato_1 = DATO_EJEMPLO_1;
+
+    pila_apilar(pila, dato_1);
+
+    void* dato_desapilado = pila_desapilar(pila);
+    pa2m_afirmar(dato_desapilado != NULL, "Desapilar de una Pila con elemento devuelve el elemento.");
+
+    if (pila != NULL)
+        pila_destruir(pila);
+    if (dato_desapilado != NULL)
+        free(dato_desapilado);
+}
+
+void pila_desapilar_elemento_del_tope_con_varios_elementos_devuelve_elemento()
+{
+    pila_t* pila = pila_crear();
+    int *dato_1 = malloc(sizeof(int));
+    if (dato_1 != NULL) {
+        *dato_1 = DATO_EJEMPLO_1;
+        pila_apilar(pila, dato_1);
+    }
+
+    int* dato_2 = malloc(sizeof(int));
+    if (dato_2 != NULL) {
+        *dato_2 = DATO_EJEMPLO_2;
+        pila_apilar(pila, dato_2);
+    }
+
+    void* dato_desapilado = pila_desapilar(pila);
+    pa2m_afirmar(dato_desapilado != NULL, "Desapilar de una Pila con mas de un elemento devuelve el elemento.");
+
+    if (pila != NULL)
+        pila_destruir(pila);
+    if (dato_desapilado != NULL)
+        free(dato_desapilado);
+    if (dato_1 != NULL)
+        free(dato_1);
+}
+
+void pila_ver_primero_devuelve_null_con_pila_invalida()
+{
+    void *primer_dato = pila_ver_primero(NULL);
+    pa2m_afirmar(primer_dato == NULL, "Ver el Primer elemento de una Pila Invalida devuelve NULL.");
+}
+
+void pila_ver_primero_devuelve_null_con_pila_vacia()
+{
+    pila_t *pila = pila_crear();
+    
+    void *primer_dato = pila_ver_primero(pila);
+    pa2m_afirmar(primer_dato == NULL, "Ver el Primer elemento de una Pila Vacia devuelve NULL.");
+
+    if (pila != NULL)
+        pila_destruir(pila);
+}
+
+void pila_ver_primero_devuelve_el_tope_de_pila()
+{
+    pila_t* pila = pila_crear();
+    int *dato_1 = malloc(sizeof(int));
+    if (dato_1 != NULL) {
+        *dato_1 = DATO_EJEMPLO_1;
+        pila_apilar(pila, dato_1);
+    }
+
+    int* dato_2 = malloc(sizeof(int));
+    if (dato_2 != NULL) {
+        *dato_2 = DATO_EJEMPLO_2;
+        pila_apilar(pila, dato_2);
+    }
+
+    void* primer_dato = pila_ver_primero(pila);
+    pa2m_afirmar(primer_dato != NULL, "Ver Primer elemento de la Pila devuelve el elemento.");
+
+    if (pila != NULL)
+        pila_destruir(pila);
+    if (primer_dato != NULL)
+        free(primer_dato);
+    if (dato_1 != NULL)
+        free(dato_1);
+}
+
+void pila_cantidad_devuelve_cantidad_de_elementos()
+{
+    pila_t* pila = pila_crear();
+    int *dato_1 = malloc(sizeof(int));
+    if (dato_1 != NULL) {
+        *dato_1 = DATO_EJEMPLO_1;
+        pila_apilar(pila, dato_1);
+    }
+
+    int* dato_2 = malloc(sizeof(int));
+    if (dato_2 != NULL) {
+        *dato_2 = DATO_EJEMPLO_2;
+        pila_apilar(pila, dato_2);
+    }
+
+    size_t cantidad_elementos = pila_cantidad(pila);
+    pa2m_afirmar(cantidad_elementos == 2, "Cantidad de elementos de la Pila devuelve la cantidad. (devolvio: %ld)", cantidad_elementos);
+
+    if (pila != NULL)
+        pila_destruir(pila);
+    if (dato_1 != NULL)
+        free(dato_1);
+    if (dato_2 != NULL)
+        free(dato_2);
+}
+
+void pila_cantidad_devuelve_0_para_pila_invalida()
+{
+    size_t cantidad_elementos = pila_cantidad(NULL);
+    pa2m_afirmar(cantidad_elementos == 0, "Cantidad de elementos de la Pila devuelve 0 para lista invalida. (devolvio: %ld)", cantidad_elementos);
+}
+
 int main()
 {
 	pa2m_nuevo_grupo("============== Pruebas de Lista ===============");
 	pa2m_nuevo_grupo("Pruebas de Creacion de Lista");
 	lista_crear_devuelve_la_lista();
+
 	pa2m_nuevo_grupo("Pruebas de Lista Vacia:");
 	lista_vacia_devuelve_true_si_no_tiene_elementos();
 	lista_vacia_devuelve_false_si_tiene_elementos();
-	pa2m_nuevo_grupo("Pruebas de Cantidad de Lista:");
+	
+    pa2m_nuevo_grupo("Pruebas de Cantidad de Lista:");
 	lista_cantidad_devuelve_0_para_lista_nula();
 	lista_cantidad_devuelve_la_cantidad_de_elementos();
-	pa2m_nuevo_grupo("Pruebas de Agregar Elementos en Lista:");
+	
+    pa2m_nuevo_grupo("Pruebas de Agregar Elementos en Lista:");
 	lista_agregar_devuelve_false_si_no_agrega();
 	lista_agregar_devuelve_true_si_agrega();
-	pa2m_nuevo_grupo("Pruebas de Inserscion Elementos en Lista:");
+	
+    pa2m_nuevo_grupo("Pruebas de Inserscion Elementos en Lista:");
 	lista_insertar_devuelve_null_para_posicion_invalida();
 	lista_insertar_devuelve_true_para_posicion_valida();
-	pa2m_nuevo_grupo("Pruebas de Eliminar Elementos en Lista:");
+	
+    pa2m_nuevo_grupo("Pruebas de Eliminar Elementos en Lista:");
 	lista_eliminar_elemento_lista_vacia_devuelve_null();
 	lista_eliminar_elemento_posicion_0_devuelve_el_elemento();
 	lista_eliminar_elemento_posicion_1_devuelve_el_elemento();
-	pa2m_nuevo_grupo("Pruebas de Busqueda Elemento en Lista:");
+	
+    pa2m_nuevo_grupo("Pruebas de Busqueda Elemento en Lista:");
 	lista_buscar_posicion_no_lo_encuentra();
 	lista_buscar_posicion_devuelve_la_posicion();
     lista_buscar_elemento_no_lo_encuentra_retorna_null();
     lista_buscar_elemento_lo_encuentra_retorna_elemento();
+    
     pa2m_nuevo_grupo("Pruebas de Iterador de Lista:");
     iterador_crear_devuelve_null_para_lista_nula();
     iterador_crear_devuelve_el_iterador_correctamente();
@@ -355,7 +523,29 @@ int main()
     iterador_obtener_actual_devuelve_null_para_lista_vacia();
     iterador_obtener_actual_devuelve_el_elemento();
 
-	pa2m_nuevo_grupo("============== Pruebas de Pila ===============");
+	
+    pa2m_nuevo_grupo("============== Pruebas de Pila ===============");
+	pa2m_nuevo_grupo("Pruebas de Creacion de Pila");
+    pila_crear_retorna_una_nueva_pila();
+
+    pa2m_nuevo_grupo("Pruebas de Apilar:");
+    pila_apilar_elemento_en_pila_invalida_retorna_false();
+    pila_apilar_elemento_retorna_true_al_apilar();
+
+    pa2m_nuevo_grupo("Pruebas de Desapilar:");
+    pila_desapilar_con_pila_invalida_retorna_null();
+    pila_desapilar_con_pila_vacia_retorna_null();
+    pila_desapilar_elemento_del_tope_devuelve_elemento();
+    pila_desapilar_elemento_del_tope_con_varios_elementos_devuelve_elemento();
+
+    pa2m_nuevo_grupo("Pruebas de Ver Primero en Pila:");
+    pila_ver_primero_devuelve_null_con_pila_invalida();
+    pila_ver_primero_devuelve_null_con_pila_vacia();
+    pila_ver_primero_devuelve_el_tope_de_pila();
+
+    pa2m_nuevo_grupo("Pruebas de Cantidad de Pila:");
+    pila_cantidad_devuelve_0_para_pila_invalida();
+    pila_cantidad_devuelve_cantidad_de_elementos();
 
 	pa2m_nuevo_grupo("============== Pruebas de Cola ===============");
 
