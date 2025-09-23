@@ -347,13 +347,13 @@ int main()
     lista_buscar_elemento_no_lo_encuentra_retorna_null();
     lista_buscar_elemento_lo_encuentra_retorna_elemento();
     pa2m_nuevo_grupo("Pruebas de Iterador de Lista:");
-    void iterador_crear_devuelve_null_para_lista_nula();
-    void iterador_crear_devuelve_el_iterador_correctamente();
-    void iterador_hay_mas_elementos_devuelve_false_para_lista_vacia();
-    void iterador_hay_mas_elementos_devuelve_true();
-    void iterador_hay_mas_elementos_devuelve_false_al_iterar_todo();
-    void iterador_obtener_actual_devuelve_null_para_lista_vacia();
-    void iterador_obtener_actual_devuelve_el_elemento();
+    iterador_crear_devuelve_null_para_lista_nula();
+    iterador_crear_devuelve_el_iterador_correctamente();
+    iterador_hay_mas_elementos_devuelve_false_para_lista_vacia();
+    iterador_hay_mas_elementos_devuelve_true();
+    iterador_hay_mas_elementos_devuelve_false_al_iterar_todo();
+    iterador_obtener_actual_devuelve_null_para_lista_vacia();
+    iterador_obtener_actual_devuelve_el_elemento();
 
 	pa2m_nuevo_grupo("============== Pruebas de Pila ===============");
 
