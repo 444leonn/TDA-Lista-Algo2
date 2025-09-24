@@ -83,3 +83,9 @@ La **Pila** mantiene una estructura _L.I.F.O_ "Last In, Firs Out", lo cual signi
 A este ultimo elemento ingresado se lo denomina **tope** de la pila, y al ingresar un nuevo elemento decimo que estamos _"apilando"_ un elemento y el mismo se convierte en un nuevo tope de la pila.
 La **Cola** mantiene una estructura _F.I.F.O_ "First In, First Out", lo cual significa que el _primer elemento_ ingresado dentro del TDA va a ser tambien el primero en _salir_ o _"desencolarse"_ del mismo.
 A este elemento se lo denomina _"cabecera"_ de la cola y al ingresar un elemento lo hacemos por el final de la misma y lo llamamos _"encolar un elemento"_. 
+
+### Diferencias entre Iterador Interno y Externo
+
+La principal diferencia entre un Iterador Interno y uno Externo es que el externo nos permite controlar el ciclo en el cual estamos iterando los elementos.
+Ya que un _iterador interno_ va a permitirnos acceder de manera iterativa a los elementos de la lista, pero no nos permite decidir como queremos que el flujo de esas iteraciones se vayan dando.
+El _iterador externo_ es mas complejo ya que es un _TDA_ formado por la lista, y el _nodo actual_ sobre el que se encuentra el estado de la iteracion.
