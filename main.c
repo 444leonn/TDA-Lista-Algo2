@@ -15,7 +15,6 @@
     lista_agregar(_lista, pokemon);
 
     return true;
-
 }
 
 int comparador_nombres(const void *pokemon, const void *nombre_buscado)

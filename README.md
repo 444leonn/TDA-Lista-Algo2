@@ -69,3 +69,17 @@ El arreglo de tamaño predefinido tiene como restriccion que no podremos almacen
 - **Nodos Enalazados:** Esta forma de implementacion de la lista consiste en almacenar el dato o elemento y una referencia a otro nodo. Esta forma de implementacion puede ser simple o doblemente enlazada.
     - **Simplemente Enlazada:** En esta implementacion cada nodo guarda una unicamente referencia al proximo nodo.
     - **Doblemente Enlazada:** A diferencia de la simplemente enlazada esta implementacion agrega una referencia mas, para almacenar tambien la referencia al nodo anterior.
+Implementar una _lista_ por nodos enlazados puede permitirnos ampliar la capacidad de almacenamiento de datos en nuestro programa, ya que no necesariamente deben encontrarse dispuestos en la memoria de manera contigua.
+- **Listas Circulares**: Este tipo de listas nos permite establecer una relacion entre el primer y ultimo elemento de la lista. En las listas de Nodos Enlazados las listas circulares tienen en su _ultimo nodo_ una referencia al primero.
+
+(insertar diagrama)
+
+### Diferencias entre Pila y Cola
+
+Los _TDAs de Pila y Cola_ tiene en comun tiene que no se puede acceder a los elementos de manera arbitraria, digamos, no podemos elegir la posicion del elemento que queremos acceder.
+Pero existen varias diferencias, las cuales se basan fundamentalmente en la manera en que se define la metodologia de acceder a los elementos de las mismas.
+
+La **Pila** mantiene una estructura _L.I.F.O_ "Last In, Firs Out", lo cual significa que el _ultimo elemento_ ingresado dentro de la TDA es el primero en _salir_ o _"desapilarse"_.
+A este ultimo elemento ingresado se lo denomina **tope** de la pila, y al ingresar un nuevo elemento decimo que estamos _"apilando"_ un elemento y el mismo se convierte en un nuevo tope de la pila.
+La **Cola** mantiene una estructura _F.I.F.O_ "First In, First Out", lo cual significa que el _primer elemento_ ingresado dentro del TDA va a ser tambien el primero en _salir_ o _"desencolarse"_ del mismo.
+A este elemento se lo denomina _"cabecera"_ de la cola y al ingresar un elemento lo hacemos por el final de la misma y lo llamamos _"encolar un elemento"_. 
