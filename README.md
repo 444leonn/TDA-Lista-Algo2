@@ -59,35 +59,107 @@ El almacenar esta referencia permite reducir la complejidad de ciertas operacion
 
 (insertar_diagrama)
 
-**lista_crear()**: esta primitiva se encarga de devolver una estructura `lista_t` almacenada en memoria dinamica.
+**Crear**: esta primitiva se encarga de devolver una estructura `lista_t` almacenada en memoria dinamica.
 Utiliza la funcion `calloc()` de la biblioteca estandar, y en este caso podemos decir que la _complejidad_ de esta operacion es _O(1)_ ya que aunque calloc inicializa las variables en 0, en este caso, siempre lo va a hacer para 3 elementos fijos (2 nodos en NULL y un size_t cantidad en 0).
 
-**lista_vacia()**: recibe una lista por parametro y retorna como bool el resultado de validar `lista->cantidad == 0`, si esta vacia devuelve true, sino devuelve false.
+**Verificar Vacia**: recibe una lista por parametro y retorna como bool el resultado de validar `lista->cantidad == 0`, si esta vacia devuelve true, sino devuelve false.
 Ademas, devuelve false siempre que se le pase una lista NULL, osea invalida.
 
-**lista_cantidad()**: recibe una lista por parametro y retorna lo que almacena la variable de `lista->cantidad`. Si la lista pasada por parametro es invalida retorna 0.
+**Cantidad**: recibe una lista por parametro y retorna lo que almacena la variable de `lista->cantidad`. Si la lista pasada por parametro es invalida retorna 0.
 
-**lista_agregar()**: recibe una lista y un puntero `void* ` a un dato por parametro.
+**Agregar al Final**: recibe una lista y un puntero `void* ` a un dato por parametro.
 Esta operacion se encarga de agregar al final de la lista un nuevo nodo con el dato pasado por parametro.
 Para eso, valida si el primer nodo de la lista es NULO, ya que si lo es significa que la lista esta vacia y este nuevo nodo debe ser apuntado por el primer nodo de la lista.
 En otro caso se apunta el `proximo nodo` del `ultimo_nodo` de la lista al nuevo nodo, y se reasigna el __ultimo_nodo_ a su `proximo` osea el nuevo nodo.
-Esta operacion tiene una _complejidad temporal_ de _O(1)_ ya que la cantidad maxima de operaciones que se van a realizar son todas sentencias de declaracion de variables y asignaciones de las mismas.
-**Dificultad Encontrada**: En un principio la implementacion de esta primitiva la realice con una complejidad _O(n)_, ya que mi estructura de `lista_t` no almacenaba la referencia al `ultimo_nodo`, sino que simplemente era el puntero al `primer_nodo` por lo que cuando queria agregar un elemento en el final de la lista tenia que ir recorriendo y avanzando entre los nodos _proximos_, lo cual resultaba en la complejidad mencionada. Sin embargo, agregar la referencia al `ultimo_nodo` me permitio reducirla la complejidad.
+    
+    - Esta operacion tiene una _complejidad temporal_ de _O(1)_ ya que la cantidad maxima de operaciones que se van a realizar son todas sentencias de declaracion de variables y asignaciones de las mismas, ademas de que lo hacen como maximo 1 vez, sin reiteraciones.
+    - **Dificultad Encontrada**: En un principio la implementacion de esta primitiva la realice con una complejidad _O(n)_, ya que mi estructura de `lista_t` no almacenaba la referencia al `ultimo_nodo`, sino que simplemente era el puntero al `primer_nodo` por lo que cuando queria agregar un elemento en el final de la lista tenia que ir recorriendo y avanzando entre los nodos _proximos_, lo cual resultaba en la complejidad mencionada. Sin embargo, agregar la referencia al `ultimo_nodo` me permitio reducirla la complejidad.
 
 (insertar diagrama)
 
-**lista_insertar()**: esta operacion recibe por parametro una lista, un puntero `void*` a un dato, y la `posicion` de la lista en la que se lo desea almacenar.
+**Insertar**: esta operacion recibe por parametro una lista, un puntero `void*` a un dato, y la `posicion` de la lista en la que se lo desea almacenar.
 Para implementarlo 
 
-**lista_buscar_posicion()**: esta primitiva recibe una lista, un puntero `void*` al elemento que se esta buscando dentro de la lista y un puntero a una funcion de `comparador` la cual es de tipo `int` y recibe dos `const void*`
+(insertar_diagrama)
+
+**Buscar Posicion**: esta primitiva recibe una lista, un puntero `void*` al elemento que se esta buscando dentro de la lista y un puntero a una funcion de `comparador` la cual es de tipo `int` y recibe dos `const void*`
 Para la implementacion de esta operacion se van reocrriendo de manera iterativa los elementos de la lista y aplicandoles al dato de cada nodo el comparador pasado por parametro. Si el mismo retorna 0, quiere decir que los elementos coinciden y por lo tanto se ha encontrado el elemento.
 La funcion retorna la posicion en la que se encuentra el elemento dentro de la lista.
 
-**lista_buscar_elemento()**:
+**Buscar Elemento**: dada un lista y una posicion dentro de la misma, la funcion se encarga de buscar el elemento en dicha posicion y devolverlo.
+Si la posicion es mayor a o igual a la cantidad de elementos la lista, significa que se esta intentado buscar en un indice invalido y devuelve NULL.
+Lo mismo si la lista recibida por parametro es invalida.
+
+**Iterador Interno**: esta primitiva refiere a un _"Iterador Interno"_ el cual nos permite aplicar una funcion `f`, la cual es recibida como puntero a funcion por parametro, a cada elemento de la lista.
+
+**Destructores**:
+Para la lista tenemos dos destructores, uno que libera de manera iterativa cada nodo, y finalmente libera la memoria reservada para la lista.
+Y otro que ademas de estas operaciones recibe un destructor para poder liberar los elementos reservados en cada nodo.
+
+### Iterador de Lista
+
+Para la implementacion del _TDA_ `lista_iterador`, decidi almacenar la un puntero a una estructura `lista_t` y un puntero al nodo de la corriente iteracion `nodo_actual`.
+
+**Crear**: Esta funcion reserva memoria con la funcion estandar `malloc()` para un `lista_iterador_t` y asigna la lista pasada por parametro a la lista que apunta el iterador, y el `nodo_actual` apuntando al *primer_nodo* de la lista.
+
+**Obtener Actual**: Esta operacion se encarga de devolver el dato almacenado dentro del nodo de la actual iteracion.
+
+**Avanzar Siguiente**: Recibe una puntero a un iterador, y reasigna el puntero del `nodo_actual` al _proximo_ nodo del mismo. Avanzando asi la iteracion.
+Si el iterador es NULL, o el `nodo_actual` de la iteracion es NULL la funcion no aplica ninguna operacion.
+
+**Hay mas Elementos**: Retorna una variable booleana si quedan elementos por iterar dentro de la lista, lo hace verificando si el _proximo_ nodo al actual es distinto de NULL.
+
+**Destructor**: Esta funcion se encarga de liberar la memoria reservada para el iterador, pero no libera ninguno nodo, ni tampoco la lista sobre la que se estaba iterando.
 
 ### Pila
 
+La pila mantiene una estructura similar ya que, al igual que la lista, tambien esta implementada por nodos simplemente enlazados.
+Pero solo guarda la referencia al _ultimo nodo ingresado_ o al _tope_ de la pila. Ademas de una variable `size_t cantidad` para almacenar la cantidad de elementos apilados.
+
+(insertar diagrama)
+
+**Crear**: Al igual que para crear la lista, esta operacion utiliza _calloc()_, y mantiene una complejidad _O(1)_ ya que es constante la cantidad de variables que debe inicializar.
+
+**Apilar**: Esta primitiva recibe una pila y un elemento y lo coloca en un `nodo_t nuevo_nodo` como el nuevo tope de la pila.
+Si la pila esta vacia el `nodo_tope` se asigna al nuevo_nodo, en otro caso se reasigna el `nodo_tope` al `nuevo_nodo`, y se guarda la referencia del anterior tope para asignarlo como el `proximo` del nuevo nodo tope.
+Finalmente se incrementa la variable de cantidad dentro de la pila y se retorna true.
+    
+    - **Complejidad Temporal**: Esta operacion mantiene una complejidad _O(1)_ ya que todas las operaciones se realizan como maximo una vez, y son declaraciones y asignaciones de variables.
+
+(insertar gif)
+
+**Desapilar**: Recibe una pila y desapila el actual `nodo_tope`, ademas de que retorna el dato almacenado en el nodo eliminado.
+Si la pila es `NULL` o eta vacia, si su cantidad de elementos es igual a 0, la funcion retorna NULL.
+
+**Ver Primero**: Esta operacion recibe una pila y retorna un _puntero al dato_ almacenado en el tope de la pila. Si la pila es NULL o esta vacia, retorna NULL.
+
+**Cantidad**: Recibe una pila y retorna la _cantidad_ almacenada en la variable de la pila. Si la pila es NULL, la funcion retorna 0.
+
+**Destructor**: Este destructor se encarga de liberar la memoria reservada para cada nodo y finalmente para la estructura de la pila.
+Sin embargo no libera los datos que se encuentran almacenados en cada nodo.
+
 ### Cola
+
+Para la implementacion de este _TDA_ decidi tener un puntero al nodo de la cabecera, un puntero al final de la cola y una variable `size_t cantidad` para ir incrementando a medida que se encolan elementos.
+
+**Crear**: Al igual que los TDAs anteriores, para la funcion de `cola_crear()` la funcion _calloc()_, y tambien tiene complejidad _O(1)_.
+
+**Encolar**: Esta primitiva recibe una estructura `cola_t` y un `void* elemento` que se quiere encolar en nuestro _TDA_.
+Se reserva memoria para un `nuevo_nodo` en el que se almacena ese elemento que se quiere encolar.
+Y luego se encola, verificando primero si el `nodo_cabecera` es `NULL` se lo asigna este `nuevo_nodo` como cabecera ya que se considera que la cola se encuentra _vacia_.
+Si la cola no se encuentra vacia, se reasigna el `ultimo_nodo` como el `nuevo_nodo` ya que al encolar debemos hacerlo por el final de la cola.
+Finalmente se incrementa la variable `cantidad` de la cola.
+
+    - **Complejidad Temporal**: La complejidad de esta operacion podemos decir que es _O(1)_ ya que se ve que la cantidad de operaciones realizadas en la funcion es constante, y se va a realizar como maximo una vez.
+
+**Desencolar**: Esta primitiva se encarga de desencolar el elemento que se encuentra en la cabecera de la cola, y liberar la memoria utilizada para ese nodo.
+Finalmente, hace un decremento de la variable `cantidad` de la cola retorna el elemento que almacenaba la anterior cabecera de la cola.
+
+**Ver Primero**: Nos permite acceder al elemento que se encuentra almacenado en la cabecera de la cola.
+
+**Cantidad**: Recibe una lista y retorna lo que contiene la variable cantidad de la misma. Si la cola pasada por parametro es NULL la funcion retorna 0.
+
+**Destructor**: Esta funcion se encarga de liberar la memoria reservada para cada nodo de la cola de manera iterativa, y por ultimo la memoria reservada para la cola en si. Si la cola pasada por parametro es NULL la funcion retorna sin hacer ninguna operacion.
 
 ---
 
@@ -126,7 +198,7 @@ Los _TDAs de Pila y Cola_ tiene en comun tiene que no se puede acceder a los ele
 Pero existen varias diferencias, las cuales se basan fundamentalmente en la manera en que se define la metodologia de acceder a los elementos de las mismas.
 
 La **Pila** mantiene una estructura _L.I.F.O_ "Last In, Firs Out", lo cual significa que el _ultimo elemento_ ingresado dentro de la TDA es el primero en _salir_ o _"desapilarse"_.
-A este ultimo elemento ingresado se lo denomina **tope** de la pila, y al ingresar un nuevo elemento decimo que estamos _"apilando"_ un elemento y el mismo se convierte en un nuevo tope de la pila.
+A este ultimo elemento ingresado se lo denomina **tope** de la pila, y al ingresar un nuevo elemento decimos que estamos _"apilando"_ un elemento y el mismo se convierte en un nuevo tope de la pila.
 La **Cola** mantiene una estructura _F.I.F.O_ "First In, First Out", lo cual significa que el _primer elemento_ ingresado dentro del TDA va a ser tambien el primero en _salir_ o _"desencolarse"_ del mismo.
 A este elemento se lo denomina _"cabecera"_ de la cola y al ingresar un elemento lo hacemos por el final de la misma y lo llamamos _"encolar un elemento"_. 
 
