@@ -57,7 +57,9 @@ Para la implementacion de lista decidi almacenar dentro de `lista_t` una variabl
 Una para referencia el _primer nodo_ de la lista y la otra para referenciar el _ultimo nodo_ de la lista.
 El almacenar esta referencia permite reducir la complejidad de ciertas operaciones detalladas posteriormente.
 
-(insertar_diagrama)
+<div align="center">
+<img src="img/diagrama_lista_memoria.svg">
+</div>
 
 **Crear**: esta primitiva se encarga de devolver una estructura `lista_t` almacenada en memoria dinamica.
 Utiliza la funcion `calloc()` de la biblioteca estandar, y en este caso podemos decir que la _complejidad_ de esta operacion es _O(1)_ ya que aunque calloc inicializa las variables en 0, en este caso, siempre lo va a hacer para 3 elementos fijos (2 nodos en NULL y un size_t cantidad en 0).
@@ -67,6 +69,10 @@ Ademas, devuelve false siempre que se le pase una lista NULL, osea invalida.
 
 **Cantidad**: recibe una lista por parametro y retorna lo que almacena la variable de `lista->cantidad`. Si la lista pasada por parametro es invalida retorna 0.
 
+<div align="center">
+<img src="img/diagrama_lista_cantidad.svg">
+</div>
+
 **Agregar al Final**: recibe una lista y un puntero `void* ` a un dato por parametro.
 Esta operacion se encarga de agregar al final de la lista un nuevo nodo con el dato pasado por parametro.
 Para eso, valida si el primer nodo de la lista es NULO, ya que si lo es significa que la lista esta vacia y este nuevo nodo debe ser apuntado por el primer nodo de la lista.
@@ -75,12 +81,16 @@ En otro caso se apunta el `proximo nodo` del `ultimo_nodo` de la lista al nuevo 
     - Esta operacion tiene una _complejidad temporal_ de _O(1)_ ya que la cantidad maxima de operaciones que se van a realizar son todas sentencias de declaracion de variables y asignaciones de las mismas, ademas de que lo hacen como maximo 1 vez, sin reiteraciones.
     - **Dificultad Encontrada**: En un principio la implementacion de esta primitiva la realice con una complejidad _O(n)_, ya que mi estructura de `lista_t` no almacenaba la referencia al `ultimo_nodo`, sino que simplemente era el puntero al `primer_nodo` por lo que cuando queria agregar un elemento en el final de la lista tenia que ir recorriendo y avanzando entre los nodos _proximos_, lo cual resultaba en la complejidad mencionada. Sin embargo, agregar la referencia al `ultimo_nodo` me permitio reducirla la complejidad.
 
-(insertar diagrama)
+<div align="center">
+<img src="img/diagrama_lista_agregar.svg">
+</div>
 
 **Insertar**: esta operacion recibe por parametro una lista, un puntero `void*` a un dato, y la `posicion` de la lista en la que se lo desea almacenar.
 Para implementarlo 
 
-(insertar_diagrama)
+<div align="center">
+<img src="img/diagrama_lista_insertar.svg">
+</div>
 
 **Buscar Posicion**: esta primitiva recibe una lista, un puntero `void*` al elemento que se esta buscando dentro de la lista y un puntero a una funcion de `comparador` la cual es de tipo `int` y recibe dos `const void*`
 Para la implementacion de esta operacion se van reocrriendo de manera iterativa los elementos de la lista y aplicandoles al dato de cada nodo el comparador pasado por parametro. Si el mismo retorna 0, quiere decir que los elementos coinciden y por lo tanto se ha encontrado el elemento.
@@ -116,7 +126,9 @@ Si el iterador es NULL, o el `nodo_actual` de la iteracion es NULL la funcion no
 La pila mantiene una estructura similar ya que, al igual que la lista, tambien esta implementada por nodos simplemente enlazados.
 Pero solo guarda la referencia al _ultimo nodo ingresado_ o al _tope_ de la pila. Ademas de una variable `size_t cantidad` para almacenar la cantidad de elementos apilados.
 
-(insertar diagrama)
+<div align="center">
+<img src="img/diagrama_pila_memoria.svg">
+</div>
 
 **Crear**: Al igual que para crear la lista, esta operacion utiliza _calloc()_, y mantiene una complejidad _O(1)_ ya que es constante la cantidad de variables que debe inicializar.
 
@@ -126,7 +138,9 @@ Finalmente se incrementa la variable de cantidad dentro de la pila y se retorna 
     
     - **Complejidad Temporal**: Esta operacion mantiene una complejidad _O(1)_ ya que todas las operaciones se realizan como maximo una vez, y son declaraciones y asignaciones de variables.
 
-(insertar gif)
+<div align="center">
+<img src="img/diagrama_pila_apilar.gif">
+</div>
 
 **Desapilar**: Recibe una pila y desapila el actual `nodo_tope`, ademas de que retorna el dato almacenado en el nodo eliminado.
 Si la pila es `NULL` o eta vacia, si su cantidad de elementos es igual a 0, la funcion retorna NULL.
@@ -202,7 +216,9 @@ A este ultimo elemento ingresado se lo denomina **tope** de la pila, y al ingres
 La **Cola** mantiene una estructura _F.I.F.O_ "First In, First Out", lo cual significa que el _primer elemento_ ingresado dentro del TDA va a ser tambien el primero en _salir_ o _"desencolarse"_ del mismo.
 A este elemento se lo denomina _"cabecera"_ de la cola y al ingresar un elemento lo hacemos por el final de la misma y lo llamamos _"encolar un elemento"_. 
 
-(insertar diagrama)
+<div align="center">
+<img src="img/diagrama_teoria_lista_nodos.svg">
+</div>
 
 ### Diferencias entre Iterador Interno y Externo
 
