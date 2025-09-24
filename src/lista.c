@@ -59,7 +59,7 @@ bool lista_agregar(lista_t *lista, void *dato)
 
 bool lista_insertar(lista_t *lista, void *elemento, size_t posicion)
 {
-	if (lista == NULL)
+	if (lista == NULL || lista_vacia(lista))
 		return false;
 
 	nodo_t *nuevo_nodo = malloc(sizeof(nodo_t));
