@@ -78,8 +78,8 @@ Esta operacion se encarga de agregar al final de la lista un nuevo nodo con el d
 Para eso, valida si el primer nodo de la lista es NULO, ya que si lo es significa que la lista esta vacia y este nuevo nodo debe ser apuntado por el primer nodo de la lista.
 En otro caso se apunta el `proximo nodo` del `ultimo_nodo` de la lista al nuevo nodo, y se reasigna el __ultimo_nodo_ a su `proximo` osea el nuevo nodo.
     
-    - Esta operacion tiene una _complejidad temporal_ de _O(1)_ ya que la cantidad maxima de operaciones que se van a realizar son todas sentencias de declaracion de variables y asignaciones de las mismas, ademas de que lo hacen como maximo 1 vez, sin reiteraciones.
-    - **Dificultad Encontrada**: En un principio la implementacion de esta primitiva la realice con una complejidad _O(n)_, ya que mi estructura de `lista_t` no almacenaba la referencia al `ultimo_nodo`, sino que simplemente era el puntero al `primer_nodo` por lo que cuando queria agregar un elemento en el final de la lista tenia que ir recorriendo y avanzando entre los nodos _proximos_, lo cual resultaba en la complejidad mencionada. Sin embargo, agregar la referencia al `ultimo_nodo` me permitio reducirla la complejidad.
+- Esta operacion tiene una _complejidad temporal_ de _O(1)_ ya que la cantidad maxima de operaciones que se van a realizar son todas sentencias de declaracion de variables y asignaciones de las mismas, ademas de que lo hacen como maximo 1 vez, sin reiteraciones.
+- **Dificultad Encontrada**: En un principio la implementacion de esta primitiva la realice con una complejidad _O(n)_, ya que mi estructura de `lista_t` no almacenaba la referencia al `ultimo_nodo`, sino que simplemente era el puntero al `primer_nodo` por lo que cuando queria agregar un elemento en el final de la lista tenia que ir recorriendo y avanzando entre los nodos _proximos_, lo cual resultaba en la complejidad mencionada. Sin embargo, agregar la referencia al `ultimo_nodo` me permitio reducirla la complejidad.
 
 <div align="center">
 <img src="img/diagrama_lista_agregar.svg">
@@ -136,7 +136,7 @@ Pero solo guarda la referencia al _ultimo nodo ingresado_ o al _tope_ de la pila
 Si la pila esta vacia el `nodo_tope` se asigna al nuevo_nodo, en otro caso se reasigna el `nodo_tope` al `nuevo_nodo`, y se guarda la referencia del anterior tope para asignarlo como el `proximo` del nuevo nodo tope.
 Finalmente se incrementa la variable de cantidad dentro de la pila y se retorna true.
     
-    - **Complejidad Temporal**: Esta operacion mantiene una complejidad _O(1)_ ya que todas las operaciones se realizan como maximo una vez, y son declaraciones y asignaciones de variables.
+- **Complejidad Temporal**: Esta operacion mantiene una complejidad _O(1)_ ya que todas las operaciones se realizan como maximo una vez, y son declaraciones y asignaciones de variables.
 
 <div align="center">
 <img src="img/diagrama_pila_apilar.gif">
@@ -164,7 +164,7 @@ Y luego se encola, verificando primero si el `nodo_cabecera` es `NULL` se lo asi
 Si la cola no se encuentra vacia, se reasigna el `ultimo_nodo` como el `nuevo_nodo` ya que al encolar debemos hacerlo por el final de la cola.
 Finalmente se incrementa la variable `cantidad` de la cola.
 
-    - **Complejidad Temporal**: La complejidad de esta operacion podemos decir que es _O(1)_ ya que se ve que la cantidad de operaciones realizadas en la funcion es constante, y se va a realizar como maximo una vez.
+- **Complejidad Temporal**: La complejidad de esta operacion podemos decir que es _O(1)_ ya que se ve que la cantidad de operaciones realizadas en la funcion es constante, y se va a realizar como maximo una vez.
 
 **Desencolar**: Esta primitiva se encarga de desencolar el elemento que se encuentra en la cabecera de la cola, y liberar la memoria utilizada para ese nodo.
 Finalmente, hace un decremento de la variable `cantidad` de la cola retorna el elemento que almacenaba la anterior cabecera de la cola.
