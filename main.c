@@ -1,6 +1,6 @@
 #include "src/lista.h"
-#include "src/tp1/tp1.h"
-#include "src/tp1/aux_tp1.h"
+#include "src/tp1.h"
+#include "src/aux_tp1.h"
 #include "src/constantes.h"
 
 #include <stdio.h>
@@ -32,11 +32,12 @@ int comparador_nombres(const void *pokemon, const void *nombre_buscado)
 int comparador_ids(const void *pokemon, const void *id_buscado)
 {
 	const struct pokemon *_pokemon = pokemon;
-	const int *_id_buscado = id_buscado;
+	const char *c_id_buscado = id_buscado;
+	int _id_buscado = atoi(c_id_buscado);
 
-	if (_pokemon->id > *_id_buscado)
+	if (_pokemon->id > _id_buscado)
 		return 1;
-	if (_pokemon->id < *_id_buscado)
+	if (_pokemon->id < _id_buscado)
 		return -1;
 	return 0;
 }

@@ -223,7 +223,7 @@ void lista_destruir(lista_t *lista)
 
 lista_iterador_t *lista_iterador_crear(lista_t *lista)
 {
-	if (lista == NULL)
+	if (lista == NULL || lista_vacia(lista))
 		return NULL;
 
 	lista_iterador_t *iterador = malloc(sizeof(lista_iterador_t));
@@ -241,9 +241,9 @@ bool lista_iterador_hay_mas_elementos(lista_iterador_t *it)
 	if (it == NULL || lista_vacia(it->lista))
 		return false;
 
-	if (it->nodo_actual != NULL)
-		return it->nodo_actual->proximo != NULL;
-	return false;
+	if (it->nodo_actual == NULL)
+		return false;
+	return true;
 }
 
 void lista_iterador_siguiente(lista_iterador_t *it)

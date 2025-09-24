@@ -2,7 +2,6 @@
 #include "src/cola.h"
 #include "src/lista.h"
 #include "src/pila.h"
-#include "src/aux.h"
 #include "src/constantes.h"
 #include <stdlib.h>
 

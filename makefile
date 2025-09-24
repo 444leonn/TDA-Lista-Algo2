@@ -2,7 +2,7 @@ CFLAGS=-std=c99 -Wall -Wconversion -Wtype-limits -pedantic -Werror -O2 -g
 VFLAGS=--leak-check=full --track-origins=yes --track-origins=yes
 
 tda:
-	gcc main.c ./src/*.c ./src/tp1/*.c $(CFLAGS) -o tda
+	gcc main.c ./src/*.c $(CFLAGS) -o tda
 
 ejecutar: tda
 	./tda $(PARAMETROS)

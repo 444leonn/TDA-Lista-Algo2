@@ -1,4 +1,4 @@
-#include "../constantes.h"
+#include "constantes.h"
 #include "aux_tp1.h"
 
 #include <stdbool.h>

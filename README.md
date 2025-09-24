@@ -106,7 +106,7 @@ Lo mismo si la lista recibida por parametro es invalida.
 Para la lista tenemos dos destructores, uno que libera de manera iterativa cada nodo, y finalmente libera la memoria reservada para la lista.
 Y otro que ademas de estas operaciones recibe un destructor para poder liberar los elementos reservados en cada nodo.
 
-### Iterador de Lista
+### Iterador Externo de Lista
 
 Para la implementacion del _TDA_ `lista_iterador`, decidi almacenar la un puntero a una estructura `lista_t` y un puntero al nodo de la corriente iteracion `nodo_actual`.
 
@@ -117,7 +117,7 @@ Para la implementacion del _TDA_ `lista_iterador`, decidi almacenar la un punter
 **Avanzar Siguiente**: Recibe una puntero a un iterador, y reasigna el puntero del `nodo_actual` al _proximo_ nodo del mismo. Avanzando asi la iteracion.
 Si el iterador es NULL, o el `nodo_actual` de la iteracion es NULL la funcion no aplica ninguna operacion.
 
-**Hay mas Elementos**: Retorna una variable booleana si quedan elementos por iterar dentro de la lista, lo hace verificando si el _proximo_ nodo al actual es distinto de NULL.
+**Hay mas Elementos**: Retorna una variable booleana si quedan elementos por iterar dentro de la lista, lo hace verificando si el nodo actual es distinto de NULL.
 
 **Destructor**: Esta funcion se encarga de liberar la memoria reservada para el iterador, pero no libera ninguno nodo, ni tampoco la lista sobre la que se estaba iterando.
 
