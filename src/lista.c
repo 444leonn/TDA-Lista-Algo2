@@ -240,7 +240,10 @@ bool lista_iterador_hay_mas_elementos(lista_iterador_t *it)
 {
 	if (it == NULL || lista_vacia(it->lista))
 		return false;
-	return it->nodo_actual->proximo != NULL;
+
+	if (it->nodo_actual != NULL)
+		return it->nodo_actual->proximo != NULL;
+	return false;
 }
 
 void lista_iterador_siguiente(lista_iterador_t *it)
