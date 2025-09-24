@@ -59,13 +59,20 @@ bool lista_agregar(lista_t *lista, void *dato)
 
 bool lista_insertar(lista_t *lista, void *elemento, size_t posicion)
 {
-	if (lista == NULL || posicion == 0)
+	if (lista == NULL)
 		return false;
 
 	nodo_t *nuevo_nodo = malloc(sizeof(nodo_t));
 	if (nuevo_nodo == NULL)
 		return false;
 	nuevo_nodo->dato = elemento;
+
+	if (posicion == 0) {
+		nuevo_nodo->proximo = lista->primer_nodo;
+		lista->primer_nodo = nuevo_nodo;
+		lista->cantidad++;
+		return true;
+	}
 
 	nodo_t *p_nodo = lista->primer_nodo;
 	nodo_t *nodo_aux = p_nodo;
@@ -115,16 +122,15 @@ void *lista_eliminar_elemento(lista_t *lista, size_t posicion)
 		i++;
 	}
 
-	if (i == posicion) {
-		nodo_aux->proximo = p_nodo->proximo;
-		void *dato_elimnado = p_nodo->dato;
-		free(p_nodo);
-		lista->cantidad--;
+	if (i != posicion)
+		return NULL;
 
-		return dato_elimnado;
-	}
+	nodo_aux->proximo = p_nodo->proximo;
+	void *dato_elimnado = p_nodo->dato;
+	lista->cantidad--;
+	free(p_nodo);
 
-	return NULL;
+	return dato_elimnado;
 }
 
 int lista_buscar_posicion(lista_t *lista, void *elemento,
