@@ -2,7 +2,7 @@
 #include "lista.h"
 
 struct cola {
-    lista_t* lista;
+	lista_t *lista;
 };
 
 cola_t *cola_crear()
@@ -25,7 +25,7 @@ bool cola_encolar(cola_t *cola, void *elemento)
 	if (cola == NULL)
 		return false;
 
-    lista_agregar(cola->lista, elemento);
+	lista_agregar(cola->lista, elemento);
 
 	return true;
 }
@@ -56,7 +56,7 @@ void cola_destruir(cola_t *cola)
 	if (cola == NULL)
 		return;
 
-    lista_destruir(cola->lista);
+	lista_destruir(cola->lista);
 
 	free(cola);
 }
